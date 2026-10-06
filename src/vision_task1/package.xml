@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>vision_task1</name>
+  <version>0.1.0</version>
+  <description>
+    视觉组考核 题目1：用 OpenCV 识别红 / 蓝 / 红蓝相间三种物块，
+    通过 ROS2 话题输出种类、长度与相对相机中心的三维坐标。
+    要求误差 ≤3cm，话题频率 ≥60Hz。
+  </description>
+  <maintainer email="you@example.com">Your Name</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>sensor_msgs</depend>
+  <depend>cv_bridge</depend>
+  <depend>vision_task1_interfaces</depend>
+
+  <!-- OpenCV：Ubuntu 22.04 上一般已随 ROS2 desktop 装好，若缺则 sudo apt install libopencv-dev -->
+  <depend>libopencv-dev</depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

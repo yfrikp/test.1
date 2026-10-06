@@ -1,0 +1,42 @@
+# ---- ROS2 编译产物：绝对不要提交，体积大且可由源码重建 ----
+build/
+install/
+log/
+
+# ---- 编译中间件 ----
+*.o
+*.so
+*.a
+*.pyc
+__pycache__/
+*.egg-info/
+
+# ---- 编辑器 / IDE ----
+.vscode/
+.idea/
+*.swp
+*~
+
+# ---- 操作系统 ----
+.DS_Store
+Thumbs.db
+
+# ---- 大数据文件：不要提交原始数据集和训练权重 ----
+# 数据集和权重放网盘或 Release，README 里给下载链接
+datasets/
+runs/
+*.pt
+*.onnx
+*.engine
+*.weights
+
+# 但允许提交小的示例图片，方便别人复现
+!samples/*.jpg
+!samples/*.png
+
+# ---- 合成测试集：体积大（两份副本共约 258 MB），可由 make_test_images.py 重新生成 ----
+# 只保留真值表 ground_truth.csv 和说明文档，图片本身不提交。
+py/samples/synth_*.png
+py/samples/synth_*.txt
+samples_synth/*.png
+samples_synth/*.txt

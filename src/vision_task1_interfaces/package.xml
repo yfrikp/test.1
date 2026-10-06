@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>vision_task1_interfaces</name>
+  <version>0.1.0</version>
+  <description>
+    视觉组考核 题目1 的自定义消息定义。
+    单独拆成一个包，是因为「消息定义」和「算法实现」分开是 ROS2 的标准做法：
+    消息包只依赖 rosidl，编译快、不牵扯 OpenCV；算法包改代码时不必重编消息。
+  </description>
+  <maintainer email="you@example.com">Your Name</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>rosidl_default_generators</buildtool_depend>
+
+  <depend>std_msgs</depend>
+
+  <exec_depend>rosidl_default_runtime</exec_depend>
+
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
