@@ -1,0 +1,52 @@
+{
+  "//": "调试配置。按 F5 选一个即可。",
+  "//envFile": "ros.env 是「source 过 ROS2 之后的环境变量快照」，由任务 ⑪ 生成。",
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "调试 task1_node.py（相机话题模式）",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/py/task1_node.py",
+      "console": "integratedTerminal",
+      "envFile": "${workspaceFolder}/.vscode/ros.env",
+      "justMyCode": false,
+      "args": [
+        "--ros-args",
+        "-r", "image_raw:=/camera/image_raw",
+        "-r", "camera_info:=/camera/camera_info"
+      ]
+    },
+    {
+      "name": "调试 task1_node.py（静态图片模式）",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/py/task1_node.py",
+      "console": "integratedTerminal",
+      "envFile": "${workspaceFolder}/.vscode/ros.env",
+      "justMyCode": false,
+      "args": [
+        "--ros-args",
+        "-p", "image_path:=${workspaceFolder}/samples/first.png"
+      ]
+    },
+    {
+      "name": "调试 task1_detect.py（单张图片，不需要 ROS2）",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/py/task1_detect.py",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "args": ["--src", "${workspaceFolder}/samples/first.png", "--show"]
+    },
+    {
+      "name": "调试 eval_synth.py（合成图集评测）",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/py/eval_synth.py",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "args": ["--samples", "${workspaceFolder}/samples_synth", "--limit", "20"]
+    }
+  ]
+}

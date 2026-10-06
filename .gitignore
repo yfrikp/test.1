@@ -1,42 +1,24 @@
-# ---- ROS2 编译产物：绝对不要提交，体积大且可由源码重建 ----
+# ============================================================
+#  题目1 独立工作区 · 忽略规则
+# ============================================================
+
+# ROS2 / colcon 编译产物（每台机器重新编译即可，不进仓库）
 build/
 install/
 log/
 
-# ---- 编译中间件 ----
-*.o
-*.so
-*.a
-*.pyc
+# Python
 __pycache__/
-*.egg-info/
+*.pyc
+*.pyo
 
-# ---- 编辑器 / IDE ----
-.vscode/
-.idea/
-*.swp
-*~
+# VS Code 的机器相关文件（环境变量快照，每台机器不一样）
+.vscode/ros.env
 
-# ---- 操作系统 ----
-.DS_Store
-Thumbs.db
+# 合成图集：324 张带噪 PNG 共约 132MB，用一条命令随时重新生成
+#   python3 py/make_test_images.py --out samples_synth
+# 真值表 ground_truth.csv 会一起生成；评测结果已存档在 results/
+samples_synth/
 
-# ---- 大数据文件：不要提交原始数据集和训练权重 ----
-# 数据集和权重放网盘或 Release，README 里给下载链接
-datasets/
-runs/
-*.pt
-*.onnx
-*.engine
-*.weights
-
-# 但允许提交小的示例图片，方便别人复现
-!samples/*.jpg
-!samples/*.png
-
-# ---- 合成测试集：体积大（两份副本共约 258 MB），可由 make_test_images.py 重新生成 ----
-# 只保留真值表 ground_truth.csv 和说明文档，图片本身不提交。
-py/samples/synth_*.png
-py/samples/synth_*.txt
-samples_synth/*.png
-samples_synth/*.txt
+# 临时/调试文件
+_debug_*.png

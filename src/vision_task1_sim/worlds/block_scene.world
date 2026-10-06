@@ -1,0 +1,74 @@
+<?xml version="1.0" ?>
+
+<sdf version="1.6">
+  <world name="block_scene">
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <light name="scene_sun" type="directional">
+      <cast_shadows>false</cast_shadows>
+      <pose>0 0 3 0 0 0</pose>
+      <diffuse>0.95 0.95 0.95 1</diffuse>
+      <specular>0.1 0.1 0.1 1</specular>
+      <direction>0.75 0.15 -0.65</direction>
+    </light>
+
+    <scene>
+      <ambient>0.65 0.65 0.65 1</ambient>
+      <background>0.45 0.45 0.5 1</background>
+      <shadows>false</shadows>
+    </scene>
+
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <model name="cam">
+      <static>true</static>
+      <pose>0 0 0.025 0 0 0</pose>
+      <link name="link">
+        <sensor name="camera" type="camera">
+          <always_on>true</always_on>
+          <update_rate>60</update_rate>
+          <visualize>false</visualize>
+          <camera>
+            <horizontal_fov>1.0472</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>R8G8B8</format>
+            </image>
+            <clip>
+              <near>0.02</near>
+              <far>50</far>
+            </clip>
+
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.004</stddev>
+            </noise>
+          </camera>
+          <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+            <ros>
+              <namespace>/</namespace>
+            </ros>
+            <camera_name>camera</camera_name>
+            <frame_name>camera_optical_frame</frame_name>
+          </plugin>
+        </sensor>
+      </link>
+    </model>
+
+    <plugin name="gazebo_ros_state" filename="libgazebo_ros_state.so">
+      <ros>
+        <namespace>/gazebo</namespace>
+        <remapping>model_states:=model_states</remapping>
+        <remapping>link_states:=link_states</remapping>
+        <update_rate>60</update_rate>
+      </ros>
+    </plugin>
+
+  </world>
+</sdf>

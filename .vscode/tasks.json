@@ -1,0 +1,250 @@
+{
+  "//": "按 Ctrl+Shift+P → Run Task 就能用。每个任务自己 source 环境；presentation 设成 dedicated 是为了让多个任务能同时跑（否则跑新任务会把上一个杀掉）。",
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "① 编译工作区（colcon build）",
+      "type": "shell",
+      "command": "source /opt/ros/humble/setup.bash && colcon build --symlink-install",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "panel": "dedicated",
+        "reveal": "always",
+        "clear": true
+      }
+    },
+    {
+      "label": "② 起 Gazebo 虚拟相机场景（仿真 + 识别节点）",
+      "type": "shell",
+      "command": "source /opt/ros/humble/setup.bash && source install/setup.bash && echo '仿真启动中，约 30 秒后可用...' && ros2 launch vision_task1_sim camera_scene.launch.py",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "panel": "dedicated",
+        "reveal": "always",
+        "clear": true
+      }
+    },
+    {
+      "label": "②b 起仿真（带 Gazebo 3D 界面，更慢）",
+      "type": "shell",
+      "command": "source /opt/ros/humble/setup.bash && source install/setup.bash && ros2 launch vision_task1_sim camera_scene.launch.py gui:=true",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "panel": "dedicated",
+        "reveal": "always",
+        "clear": true
+      }
+    },
+    {
+      "label": "③ 独立真值核对（仿真精度表格）",
+      "type": "shell",
+      "command": "source /opt/ros/humble/setup.bash && source install/setup.bash && python3 src/vision_task1_sim/scripts/verify_sim.py",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "panel": "dedicated",
+        "reveal": "always",
+        "clear": false
+      }
+    },
+    {
+      "label": "④ 跑合成图集评测（324 张带真值）",
+      "type": "shell",
+      "command": "python3 py/eval_synth.py --samples samples_synth",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "panel": "dedicated",
+        "reveal": "always",
+        "clear": true
+      }
+    },
+    {
+      "label": "⑤ 重新生成合成图集（324 张）",
+      "type": "shell",
+      "command": "python3 py/make_test_images.py --out samples_synth",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "panel": "dedicated",
+        "reveal": "always",
+        "clear": true
+      }
+    },
+    {
+      "label": "⑥ 生成拍摄靶图（含标定棋盘格）",
+      "type": "shell",
+      "command": "python3 py/make_targets.py",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "panel": "dedicated",
+        "reveal": "always",
+        "clear": true
+      }
+    },
+    {
+      "label": "⑦ 单张图片识别（会弹框填路径）",
+      "type": "shell",
+      "command": "python3 py/task1_detect.py --src ${input:imagePath} --show",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "panel": "dedicated",
+        "reveal": "always",
+        "clear": true
+      }
+    },
+    {
+      "label": "⑧ 抓一帧相机画面（存 results/）",
+      "type": "shell",
+      "command": "source /opt/ros/humble/setup.bash && source install/setup.bash && python3 src/vision_task1_sim/scripts/save_frame.py --out results/camera_frame.png --hsv",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "panel": "dedicated",
+        "reveal": "always",
+        "clear": true
+      }
+    },
+    {
+      "label": "⑨ 看 /block_info 话题频率（验收 60Hz）",
+      "type": "shell",
+      "command": "source /opt/ros/humble/setup.bash && source install/setup.bash && ros2 topic hz /block_info",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "panel": "dedicated",
+        "reveal": "always",
+        "clear": false
+      }
+    },
+    {
+      "label": "⑩ 看 /block_info 内容（识别结果）",
+      "type": "shell",
+      "command": "source /opt/ros/humble/setup.bash && source install/setup.bash && ros2 topic echo /block_info",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "panel": "dedicated",
+        "reveal": "always",
+        "clear": false
+      }
+    },
+    {
+      "label": "⑪ 看相机画面（rqt，已指定 /camera/image_raw）",
+      "type": "shell",
+      "command": "source /opt/ros/humble/setup.bash && source install/setup.bash && ros2 run rqt_image_view rqt_image_view /camera/image_raw",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "panel": "dedicated",
+        "reveal": "always",
+        "clear": false
+      }
+    },
+    {
+      "label": "⑪b 存相机画面到 results/（比 rqt 可靠，存完直接看图）",
+      "type": "shell",
+      "command": "source /opt/ros/humble/setup.bash && source install/setup.bash && python3 src/vision_task1_sim/scripts/save_frame.py --out results/camera_frame.png --hsv && echo '已保存 results/camera_frame.png，在左侧文件树里点开就能看'",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "panel": "dedicated",
+        "reveal": "always",
+        "clear": true
+      }
+    },
+    {
+      "label": "⑫ 刷新调试用环境变量快照（.vscode/ros.env）",
+      "type": "shell",
+      "command": "source /opt/ros/humble/setup.bash && source install/setup.bash && env | grep -E '^(PATH|PYTHONPATH|LD_LIBRARY_PATH|AMENT_PREFIX_PATH|COLCON_PREFIX_PATH|CMAKE_PREFIX_PATH|PKG_CONFIG_PATH|ROS_DISTRO|ROS_VERSION|ROS_LOCALHOST_ONLY|RMW_IMPLEMENTATION)=' > .vscode/ros.env && echo '已刷新 .vscode/ros.env'",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "panel": "dedicated",
+        "reveal": "always",
+        "clear": true
+      }
+    },
+    {
+      "label": "⑬ 一键停掉所有仿真/识别进程",
+      "type": "shell",
+      "command": "pkill -9 -f gzserver; pkill -9 -f gzclient; pkill -9 -f task1_node; pkill -9 -f verify_sim; echo '已停掉仿真与识别节点'",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "panel": "dedicated",
+        "reveal": "always",
+        "clear": true
+      }
+    },
+    {
+      "label": "⑭ 推送到 GitHub（需先开代理 + 已在网页建好私有仓库）",
+      "type": "shell",
+      "command": "cd ${workspaceFolder} && git remote remove origin 2>/dev/null; git remote add origin ${input:repoUrl} && git push -u origin main",
+      "problemMatcher": [],
+      "presentation": {
+        "panel": "dedicated",
+        "reveal": "always",
+        "clear": true
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "imagePath",
+      "type": "promptString",
+      "description": "要识别的图片路径",
+      "default": "${workspaceFolder}/samples/first.png"
+    },
+    {
+      "id": "repoUrl",
+      "type": "promptString",
+      "description": "GitHub 仓库地址（例：https://github.com/yfrikp/vision_task1.git）"
+    }
+  ]
+}

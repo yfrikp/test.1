@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>vision_task1_sim</name>
+  <version>0.1.0</version>
+  <description>题目1 的 Gazebo 虚拟相机场景：不用真实相机也能完成识别与定位验证</description>
+  <maintainer email="lenovo@example.com">lenovo</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <exec_depend>gazebo_ros</exec_depend>
+  <exec_depend>gazebo_plugins</exec_depend>
+  <exec_depend>gazebo_msgs</exec_depend>
+  <exec_depend>vision_task1_interfaces</exec_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

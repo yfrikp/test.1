@@ -1,0 +1,12 @@
+{
+  "//": "打开这个工作区时 VS Code 会提示安装下面这些扩展",
+  "recommendations": [
+    "ms-vscode-remote.remote-wsl",
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "ms-vscode.cpptools",
+    "ms-vscode.cmake-tools",
+    "jaehyunshim.vscode-ros",
+    "ms-ceintl.vscode-language-pack-zh-hans"
+  ]
+}

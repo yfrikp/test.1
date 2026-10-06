@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+
+<sdf version="1.6">
+  <model name="block_red_blue">
+    <static>true</static>
+    <link name="link">
+
+      <collision name="collision_top">
+        <pose>0 0 0.0125 0 0 0</pose>
+        <geometry><box><size>0.05 0.05 0.025</size></box></geometry>
+      </collision>
+      <visual name="visual_top">
+        <pose>0 0 0.0125 0 0 0</pose>
+        <geometry><box><size>0.05 0.05 0.025</size></box></geometry>
+        <material>
+          <ambient>0.75 0.0 0.0 1</ambient>
+          <diffuse>0.90 0.05 0.05 1</diffuse>
+          <specular>0.05 0.05 0.05 1</specular>
+          <emissive>0.20 0.0 0.0 1</emissive>
+        </material>
+      </visual>
+
+      <collision name="collision_bottom">
+        <pose>0 0 -0.0125 0 0 0</pose>
+        <geometry><box><size>0.05 0.05 0.025</size></box></geometry>
+      </collision>
+      <visual name="visual_bottom">
+        <pose>0 0 -0.0125 0 0 0</pose>
+        <geometry><box><size>0.05 0.05 0.025</size></box></geometry>
+        <material>
+          <ambient>0.0 0.0 0.75 1</ambient>
+          <diffuse>0.05 0.05 0.90 1</diffuse>
+          <specular>0.05 0.05 0.05 1</specular>
+          <emissive>0.0 0.0 0.20 1</emissive>
+        </material>
+      </visual>
+
+    </link>
+  </model>
+</sdf>

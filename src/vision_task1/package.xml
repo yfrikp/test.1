@@ -18,7 +18,6 @@
   <depend>cv_bridge</depend>
   <depend>vision_task1_interfaces</depend>
 
-  <!-- OpenCV：Ubuntu 22.04 上一般已随 ROS2 desktop 装好，若缺则 sudo apt install libopencv-dev -->
   <depend>libopencv-dev</depend>
 
   <test_depend>ament_lint_auto</test_depend>

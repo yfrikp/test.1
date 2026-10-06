@@ -10,7 +10,6 @@ find_package(ament_cmake REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(std_msgs REQUIRED)
 
-# 声明要生成的消息文件（可以有多个，用空格隔开）
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/BlockInfo.msg"
   DEPENDENCIES std_msgs

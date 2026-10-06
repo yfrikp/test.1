@@ -1,0 +1,56 @@
+{
+  "//": "题目1 工作区设置。用 VS Code 的 Remote-WSL 打开 ~/task1_ws 时自动生效。",
+
+  "files.associations": {
+    "*.world": "xml",
+    "*.sdf": "xml",
+    "*.urdf": "xml",
+    "*.xacro": "xml",
+    "*.msg": "plaintext",
+    "*.launch.py": "python"
+  },
+
+  "//files.exclude": "编译产物和缓存不显示在侧边栏，保持工作区清爽",
+  "files.exclude": {
+    "**/build": true,
+    "**/install": true,
+    "**/log": true,
+    "**/__pycache__": true,
+    "**/*.pyc": true
+  },
+  "search.exclude": {
+    "**/build": true,
+    "**/install": true,
+    "**/log": true,
+    "**/samples_synth": true
+  },
+  "files.watcherExclude": {
+    "**/build/**": true,
+    "**/install/**": true,
+    "**/log/**": true,
+    "**/samples_synth/**": true
+  },
+
+  "//python": "让 Pylance 能补全 rclpy / cv_bridge / 自定义消息",
+  "python.defaultInterpreterPath": "/usr/bin/python3",
+  "python.analysis.extraPaths": [
+    "/opt/ros/humble/local/lib/python3.10/dist-packages",
+    "/opt/ros/humble/lib/python3.10/site-packages",
+    "${workspaceFolder}/install/vision_task1_interfaces/lib/python3.10/site-packages"
+  ],
+
+  "C_Cpp.default.cppStandard": "c++17",
+  "C_Cpp.default.includePath": [
+    "/opt/ros/humble/include/**",
+    "${workspaceFolder}/src/**",
+    "${workspaceFolder}/install/**/include/**"
+  ],
+
+  "editor.rulers": [100],
+  "editor.tabSize": 4,
+  "editor.insertSpaces": true,
+  "files.encoding": "utf8",
+  "files.trimTrailingWhitespace": true,
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "explorer.compactFolders": false
+}
