@@ -22,3 +22,13 @@ samples_synth/
 
 # 临时/调试文件
 _debug_*.png
+
+# ============================================================
+#  YOLO 分支（加分项②）
+# ============================================================
+# 训练用的数据集是 samples_synth 的 324 张图复制出来的（约 132MB）
+# 用 python3 yolo/train_yolo.py 一条命令就能重建
+yolo/dataset/
+yolo/train.log
+yolo/runs/*/weights/last.pt
+weights/
