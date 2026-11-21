@@ -17,13 +17,22 @@
 |---|---|---|
 | 识别三种物块 | ✅ **324/324 = 100%** | [docs/验收证据.md](docs/验收证据.md) |
 | 输出**种类** | ✅ `block_class` 字段 | `ros2 topic echo /block_info` |
-| 输出**长度** | ✅ `edge_length_m`（米） | 同上 |
+| 输出**长度** | ✅ `edge_length_m`（米，取标称 5cm） | 同上 |
 | 输出**距摄像头中心坐标** | ✅ `x_m / y_m / z_m`（米） | 同上 |
 | 通过 **ROS2 话题**输出 | ✅ `/block_info` | 同上 |
 | 误差 **≤3cm** | ✅ 合成图集 **100%**；仿真 **100%**（每类 710 样本） | [docs/验收证据.md](docs/验收证据.md) |
-| 频率 **≥60Hz** | ✅ 实测 **180 Hz** | `ros2 topic hz /block_info` |
+| 频率 **≥60Hz** | ✅ 实测 **180 msg/s**（60Hz 定时 × 3 个物块） | `ros2 topic hz /block_info` |
 | 加分项① 光心偏移补偿 | ✅ 参数 `offset_x_m/offset_y_m` | `py/task1_detect.py` |
 | 加分项② YOLO 调优 | ✅ mAP50 **0.995**、≤3cm **96.9%** | [docs/题目1-YOLO调优.md](docs/题目1-YOLO调优.md) |
+
+**两个指标的准确说明**（避免误读）：
+
+- **频率**：节点按 `republish_hz`（默认 60Hz）定时发布，每个物块一条消息。
+  场景里 3 个物块 → 180 msg/s；只有 1 个物块 → 60 msg/s；空场景不发消息。
+  想要单物块也更高，加参数即可：`--ros-args -p republish_hz:=120`。
+- **长度**：物块边长是标称已知的 5cm，所以 `edge_length_m` 直接回填标称值；
+  真正测出来的是像素边长 `edge_length_px`，两者与距离的关系是
+  `z = f · 5cm / edge_length_px`，可以互相印证。
 
 ---
 
